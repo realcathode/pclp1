@@ -48,10 +48,14 @@ int main() {
     int n, max;
     scanf("%d %d", &n, &max);
 
-    int *v = malloc(n * sizeof(n));
-
+    int *v = malloc(n * sizeof(int));
+    if (v == NULL) {
+        return 1;
+    }
     generate_randoms(v, max, n);
     display(v, n);
     qsort(v, n, sizeof(int), cmpfunc);
     display(v, n);
+    free(v);
+    return 0;
 }
