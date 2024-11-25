@@ -27,10 +27,21 @@ void generate_randoms(int *arr, int max, int count) {
         }
 
         arr[i] = min + (rand % (max - min));
-        printf("%d\n", arr[i]); 
     }
 
     fclose(f); 
+}
+
+void display(int *v, int n) {
+    for(int i = 0; i < n; i++) {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+}
+
+int cmpfunc(const void *a, const void *b) {
+   const int *A = a, *B = b;
+   return (*A > *B) - (*A < *B);
 }
 
 int main() {
@@ -40,8 +51,7 @@ int main() {
     int *v = malloc(n * sizeof(n));
 
     generate_randoms(v, max, n);
-
-    for(int i = 0; i < n; i++) {
-        // printf("%d", v[i]);
-    }
+    display(v, n);
+    qsort(v, n, sizeof(int), cmpfunc);
+    display(v, n);
 }
