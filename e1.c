@@ -7,17 +7,34 @@
     preferată, afişându-i conţinutul atât înainte, cât şi după ce sortarea a avut loc.
 
 */
-
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+
+void generate_randoms(int *arr, int max, int count) {
+    int min = 0;
+    int fd = open("/dev/urandom", O_RDONLY);
+
+    for (int i = 0; i < count; i++) {
+        unsigned int rand;
+        read(fd, &rand, sizeof(rand));
+        arr[i] = rand;
+    }
+
+    close(fd);
+}
 
 int main() {
     int n, max;
     scanf("%d %d", &n, &max);
 
-    int *v = calloc(n, sizeof(n));
+    int *v = malloc(n * sizeof(n));
 
     for(int i = 0; i < n; i++) {
         printf("%d", v[i]);
     }
+
+    generate_randoms(v, max, n);
 }
